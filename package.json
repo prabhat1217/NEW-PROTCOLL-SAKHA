@@ -8,7 +8,7 @@
   "scripts": {
     "prepare:web": "node prepare-web.js",
     "start": "npm run prepare:web && electron .",
-    "exe": "npm run prepare:web && electron-builder --win --x64 --publish never",
+    "exe": "npm run prepare:web && electron-builder --win --x64",
     "test": "node run-tests.js"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
     "playwright": "1.48.0"
   },
   "build": {
-    "publish": "never",
+    "publish": null,
     "appId": "com.protocolsakha.app",
     "productName": "PROTOCOLL SAKHA",
     "copyright": "PROTOCOLL SAKHA",
