@@ -22,4 +22,46 @@
     "jspdf": "2.5.1"
   },
   "devDependencies": {
-    "electron": "31.7.7
+    "electron": "31.7.7",
+    "electron-builder": "24.13.3",
+    "playwright": "1.48.0"
+  },
+  "build": {
+    "publish": "never",
+    "appId": "com.protocolsakha.app",
+    "productName": "PROTOCOLL SAKHA",
+    "copyright": "PROTOCOLL SAKHA",
+    "directories": {
+      "output": "dist",
+      "buildResources": "."
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "prepare-web.js",
+      "app.html",
+      "index.html",
+      "www/**/*",
+      "package.json",
+      "*.png"
+    ],
+    "win": {
+      "icon": "icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "PROTOCOLL SAKHA",
+      "artifactName": "PROTOCOLL-SAKHA-Setup.${ext}",
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "PROTOCOLL-SAKHA-Portable.${ext}"
+    }
+  }
+}
