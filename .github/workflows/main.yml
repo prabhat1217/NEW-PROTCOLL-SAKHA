@@ -28,6 +28,12 @@ jobs:
       - name: Prepare web files
         run: npm run prepare:web
 
+      - name: Create Capacitor web directory
+        run: |
+          mkdir -p www
+          cp index.html www/index.html
+          cp app.html www/app.html
+
       - name: Add Android platform
         run: npx cap add android
 
