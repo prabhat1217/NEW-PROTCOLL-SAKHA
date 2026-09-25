@@ -1,0 +1,7 @@
+{
+  "appId": "com.protocolsakha.app",
+  "appName": "PROTOCOL SAKHA",
+  "webDir": "www",
+  "backgroundColor": "#071329",
+  "android": { "allowMixedContent": false }
+}

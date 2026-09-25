@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="gu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071329"><title>PROTOCOL SAKHA</title>
+<style>html,body{margin:0;height:100%;background:#071329;color:#f3d36e;font-family:'Shruti','Nirmala UI',sans-serif}body{display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}</style></head>
+<body>PROTOCOL SAKHA…
+<script>
+/* Loader: opens the newest app file. A newer app file picked inside the app (stored on the device) wins over the built-in one, so APK/EXE need not be rebuilt for every change. */
+(function(){
+var BUNDLED=11,APP='app.html';
+function go(){location.replace(APP+location.hash)}
+try{sessionStorage.setItem('pdr_shell','1')}catch(e){}
+var tries=0;try{tries=+localStorage.getItem('pdr_boot_try')||0}catch(e){}
+if(location.hash==='#safe'||tries>=2){try{localStorage.setItem('pdr_boot_try','0');indexedDB.deleteDatabase('pdr_shell')}catch(e){}go();return}
+try{
+ var q=indexedDB.open('pdr_shell',1);
+ q.onupgradeneeded=function(){q.result.createObjectStore('kv')};
+ q.onerror=go;
+ q.onsuccess=function(){try{
+  var r=q.result.transaction('kv').objectStore('kv').get('app_html');
+  r.onerror=go;
+  r.onsuccess=function(){var rec=r.result;
+   if(rec&&rec.html&&rec.v>=BUNDLED){
+    try{localStorage.setItem('pdr_boot_try',String(tries+1));sessionStorage.setItem('pdr_override',String(rec.v))}catch(e){}
+    document.open();document.write(rec.html);document.close();
+   }else{try{sessionStorage.removeItem('pdr_override')}catch(e){}go()}
+  }}catch(e){go()}};
+}catch(e){go()}
+})();
+</script></body></html>
