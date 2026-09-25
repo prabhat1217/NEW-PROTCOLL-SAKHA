@@ -28,7 +28,7 @@ jobs:
       - name: Prepare web files
         run: npm run prepare:web
 
-      - name: Create Capacitor web directory
+      - name: Create www directory
         run: |
           mkdir -p www
           cp index.html www/index.html
@@ -36,12 +36,6 @@ jobs:
 
       - name: Add Android platform
         run: npx cap add android
-
-      - name: Configure Android
-        run: node android-config.js
-
-      - name: Generate Android icons
-        run: node android-icons.js
 
       - name: Sync Capacitor
         run: npx cap sync android
