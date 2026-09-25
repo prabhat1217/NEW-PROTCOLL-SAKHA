@@ -19,6 +19,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install PDF libraries
+        run: npm install jspdf@2.5.1 html2canvas@1.4.1 --save-exact
+
+      - name: Check PDF libraries
+        run: |
+          dir node_modules\jspdf\dist
+          dir node_modules\html2canvas\dist
+
       - name: Build Windows EXE
         run: npm run exe
 
