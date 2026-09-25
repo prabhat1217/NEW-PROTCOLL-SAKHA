@@ -1,12 +1,33 @@
 // Copies PDF libraries into www/lib so PDF works offline (APK + EXE)
-const fs = require('fs'), path = require('path');
-const lib = path.join(__dirname, '..', 'www', 'lib');
+
+const fs = require('fs');
+const path = require('path');
+
+const root = __dirname;
+const nodeModules = path.join(root, 'node_modules');
+const lib = path.join(root, 'www', 'lib');
+
 fs.mkdirSync(lib, { recursive: true });
+
 const files = [
-  ['jspdf/dist/jspdf.umd.min.js', 'jspdf.umd.min.js'],
-  ['html2canvas/dist/html2canvas.min.js', 'html2canvas.min.js']
+  [
+    path.join(nodeModules, 'jspdf', 'dist', 'jspdf.umd.min.js'),
+    path.join(lib, 'jspdf.umd.min.js')
+  ],
+  [
+    path.join(nodeModules, 'html2canvas', 'dist', 'html2canvas.min.js'),
+    path.join(lib, 'html2canvas.min.js')
+  ]
 ];
-for (const [from, to] of files) {
-  fs.copyFileSync(path.join(__dirname, '..', 'node_modules', from), path.join(lib, to));
+
+for (const [source, destination] of files) {
+  if (!fs.existsSync(source)) {
+    throw new Error(`Required file not found: ${source}`);
+  }
+
+  fs.copyFileSync(source, destination);
+  console.log(`Copied: ${source}`);
+  console.log(`To:     ${destination}`);
 }
-console.log('PDF libraries copied to www/lib');
+
+console.log('PDF libraries copied successfully to www/lib');
